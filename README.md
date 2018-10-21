@@ -35,6 +35,26 @@ Mount your local kakuro-online version at `c:/kakuro-online` in Container at `/u
 
 *All the next steps are from the Bash shell inside of your docker Container!!!*
 
+<<<<<<< HEAD
+=======
+`cd /usr/src/kakuro-backend && sbt run`
+
+Run Kakuro-backend to install dependecys. This build will fail because
+
+of the missing `log4j2.xml` file. This will also take a while! 
+
+*After* the error message, CTRL + C out of the process. 
+
+`cd /usr/src && bash setup.sh && mv /usr/src/kakuro-backend/target/scala-2.11/classes/log4j2.* /usr/src/kakuro-backend/target/scala-2.11/classes/log4j2.xml`
+
+Run bash script to copy log4j.xml in the `/target/scala-2.11/classes/`
+directory.
+
+`cd /usr/src/kakuro-backend && sbt run`
+
+Now the build of the Backend is finished.
+
+>>>>>>> 5165c11b6c2b39f42929c354d2bac0d09c2d3624
 `cd /usr/src/kakuro-online/kakuro-online && sbt run`
 
 Build the Kakuro Online Project.
