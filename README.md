@@ -43,7 +43,7 @@ of the missing `log4j2.xml` file. This will also take a while!
 
 *After* the error message, CTRL + C out of the process. 
 
-`cd /usr/src && bash setup.sh`
+`cd /usr/src && bash setup.sh && mv /usr/src/kakuro-backend/target/scala-2.11/classes/log4j2.* /usr/src/kakuro-backend/target/scala-2.11/classes/log4j2.xml`
 
 Run bash script to copy log4j.xml in the `/target/scala-2.11/classes/`
 directory.
