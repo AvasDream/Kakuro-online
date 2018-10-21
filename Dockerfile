@@ -19,9 +19,9 @@ RUN apt-get update
 RUN apt-get install sbt -y
 RUN mkdir /usr/src/kakuro-online
 RUN git clone https://github.com/AvasDream/de.htwg.se.kakuro.git /usr/src/kakuro-backend
-COPY ["setup.sh","/usr/src/setup.sh"]
-RUN chmod +x /usr/src/setup.sh
+#COPY ["setup.sh","/usr/src/setup.sh"]
+#RUN chmod +x /usr/src/setup.sh
 RUN rm /scala-*
-RUN bash /usr/src/setup.sh
-#RUN cd /usr/src/kakuro-backend/ && sbt run
+RUN cd /usr/src/kakuro-backend && sbt compile
+#RUN cd /usr/src/kakuro-online/kakuro-online && sbt compile
 EXPOSE 9000
