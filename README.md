@@ -39,7 +39,9 @@ Mount your local kakuro-online version at `c:/kakuro-online` in Container at `/u
 
 Run Kakuro-backend to install dependecys. This build will fail because
 
-of the missing `log4j2.xml` file. This will also take a while!
+of the missing `log4j2.xml` file. This will also take a while! 
+
+*After* the error message, CTRL + C out of the process. 
 
 `cd /usr/src && bash setup.sh`
 
