@@ -39,6 +39,10 @@ Mount your local kakuro-online version at `c:/kakuro-online` in Container at `/u
 
 Build the Kakuro Online Project.
 
+After this you can change the files on your local system and the changes will be reflected into the docker container.
+
+So programm the project on your local system and build it in the docker container.
+
 
 THE END ingnore below instructions!
 
