@@ -19,10 +19,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     * will be called when the application receives a `GET` request with
     * a path of `/`.
     */
-
-
-  val generator = new FieldCreator()
-  val field = generator.createNewField(8)
+  
   def kakuro() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.kakuro())
   }
