@@ -23,10 +23,16 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   val generator = new FieldCreator()
   val field = generator.createNewField(8)
+  def kakuro() = Action { implicit request: Request[AnyContent] =>
+    Ok(views.html.kakuro(field.toString()))
+  }
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
   }
-  def kakuro() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.kakuro(field.toString()))
+  def introduction() = Action {implicit request: Request[AnyContent] =>
+    Ok(views.html.introduction())
+  }
+  def rules() = Action {implicit request: Request[AnyContent] =>
+    Ok(views.html.rule())
   }
 }
