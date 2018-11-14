@@ -1,0 +1,48 @@
+
+/*------------------------------------------------------------------------------*/
+/*main.scala.html seite*/
+/*------------------------------------------------------------------------------*/
+#mainP {
+    background-color: chartreuse;
+    position: center;
+    text-align: center;
+}
+
+
+/*------------------------------------------------------------------------------*/
+/*main.scala.html seite*/
+/*------------------------------------------------------------------------------*/
+#rule {
+    background-color: chartreuse;
+    background-image: url("../images/1378_background.jpg");
+    margin-left: 20%;
+    margin-right: 20%;
+    position: center;
+    text-align: center;
+    border-style: solid;
+    border-color: #0000ff #0000ff;
+}
+
+#rule h1{
+    font-family: fantasy;
+    color: blue;
+}
+
+#rule h2{
+    font-family: fantasy;
+    color: blue;
+}
+
+#rule .schritt{
+    color: blue;
+}
+
+#rule p{
+    content: initial;
+    background-color: #7A9437;
+    text-align: left;
+}
+
+
+
+

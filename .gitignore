@@ -1,4 +1,7 @@
 *.class
 *.log
 /target
+.idea/*.*
 /kakuro-online/.g8
+/.idea
+/project
