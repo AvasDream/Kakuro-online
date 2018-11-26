@@ -1,5 +1,89 @@
-@(tui: String)
+@import scala._
+@(controller: de.htwg.se.kakuro.controller.controllerComponent.ControllerInterface)
+
+@field = @{
+    controller.fieldToString
+}
+
+@arrField = @{
+    field.split('\n')
+}
+
+@arrFieldLineDig = @{};
+
 
 @main("Test Functions") {
-<h1>@Html(tui)</h1>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Kakuro<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rules">Regeln</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+    <br>
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <div id="kakuro">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 ">
+                    <table class="table table-bordered table-dark">
+                        @for(ss <- 0 until arrField.length){
+
+                            @if(arrField(ss).startsWith(" 0")){
+
+                                <thead>
+                                    <tr>
+                                    @for(c <- arrField(ss)){
+                                        @if(c.isDigit){
+                                            <th scope="col">@Html(Character.toString(c))</th>
+                                        }
+                                    }
+                                    </tr>
+                                </thead>
+                            }
+                            @if(arrField(ss).startsWith("+")){
+
+                            }
+                            @if(arrField(ss).startsWith("|")){
+
+
+                                <tbody>
+                                    <tr>
+                                    @for(c <- arrField(ss).replaceAll(" ", "").split('|')slice(1, arrField(ss).replaceAll(" ", "").split('|').size)){
+                                        @if(c.matches("^\\d+$")){
+                                            <td>
+                                                <span class="sup">@Html(c)</span>
+
+                                            </td>
+                                        } else {
+                                            <td>
+                                                <span class="sup">@Html("")</span>
+
+                                            </td>
+                                        }
+
+                                    }
+                                    </tr>
+                                </tbody>
+
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 }

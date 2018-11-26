@@ -20,9 +20,19 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
 
   val injector = Guice.createInjector(new KakuroModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
-  val tui = new Tui(controller)
-  val string = tui.toString()
+  //val tui = new Tui(controller)
+  //val string = tui.toString()
+
+  controller.initField()
+  //val field = controller.fieldToString
+  //var arrField = field.split('\n')
+  //var toPage = ""
+  //for (s <- arrField){
+  //  toPage += s + "*"
+  //}
+
   def kakuro() = Action {implicit request: Request[AnyContent] =>
-    Ok(views.html.test(string))
+    Ok(views.html.test(controller))
   }
 }
+
