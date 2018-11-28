@@ -1,5 +1,39 @@
-@(tui: String)
+@(field: de.htwg.se.kakuro.model.fieldComponent.FieldInterface)
 
 @main("Test Functions") {
-<h1>@Html(tui)</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 ">
+            <table class="table table-bordered table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">1</th>
+                    <th scope="col">2</th>
+                    <th scope="col">3</th>
+                    <th scope="col">4</th>
+                    <th scope="col">5</th>
+                    <th scope="col">6</th>
+                    <th scope="col">7</th>
+                    <th scope="col">8</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for(row <- 0 until 8) {
+                    <tr>
+                        <th scope="row">@row</th>
+                            @for(col <- 0 until 8) {
+                                @if(field.cell(row,col).isWhite) {
+                                    <td style="background-color:White">@col</td>
+                                } else {
+                                    <td>@col</td>
+                                }
+                            }
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 }

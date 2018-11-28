@@ -23,11 +23,14 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
   val injector = Guice.createInjector(new KakuroModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
   controller.initField
-  controller.set(1,1,3)
+  controller.set(1,1,9)
   Logger.info("Hello World")
   val field = controller.getField
-  val string = controller.fieldToString
+  val height = field.height
+  val width = field.width
+
+
   def kakuro() = Action {implicit request: Request[AnyContent] =>
-    Ok(views.html.test(string))
+    Ok(views.html.test(field))
   }
 }
