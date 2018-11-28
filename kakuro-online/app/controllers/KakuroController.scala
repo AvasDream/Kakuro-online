@@ -3,13 +3,12 @@ package controllers
 import javax.inject._
 
 import play.api.mvc._
-import de.htwg.se.kakuro.model.fileIOComponent.fileIOJsonImpl
 import com.google.inject.Guice
 import de.htwg.se.kakuro.controller.controllerComponent.ControllerInterface
 import de.htwg.se.kakuro.KakuroModule
 import de.htwg.se.kakuro.model.fieldComponent.{CellInterface, FieldInterface}
 import play.api.Logger
-import play.api.libs.json.{JsNumber, JsObject, Json, Writes}
+import play.api.libs.json._
 /**
   * This controller creates an `Action` to handle HTTP requests to the
   * application's home page.
@@ -22,16 +21,38 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
   val injector = Guice.createInjector(new KakuroModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
   controller.initField
-  controller.set(1,1,9)
   Logger.info("Hello World")
   val field = controller.getField
   val height = field.height
   val width = field.width
+  val helper = new helper;
 
-  val helper = new helper
-  val jsonField = helper.gridToJson(field);
   def kakuro() = Action {implicit request: Request[AnyContent] =>
-    Ok(views.html.test(jsonField))
+    Ok(views.html.test())
+  }
+
+  def initGame() = Action {
+    controller.initField
+    val jsonField = helper.gridToJson(controller.getField)
+    val json: JsValue = Json.parse("""
+  {
+    "name" : "Watership Down",
+    "location" : {
+      "lat" : 51.235685,
+      "long" : -1.309197
+    },
+    "residents" : [ {
+      "name" : "Fiver",
+      "age" : 4,
+      "role" : null
+    }, {
+      "name" : "Bigwig",
+      "age" : 6,
+      "role" : "Owsla"
+    } ]
+  }
+  """)
+    Ok(json)
   }
 
 
