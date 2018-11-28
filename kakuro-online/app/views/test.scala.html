@@ -24,9 +24,12 @@
                         <th scope="row">@row</th>
                             @for(col <- 0 until 8) {
                                 @if(field.cell(row,col).isWhite) {
-                                    <td style="background-color:White">@col</td>
+                                    <td class="success">_</td>
+                                } else if(field.cell(row,col).isBlack) {
+                                    <td class="success">X</td>
                                 } else {
-                                    <td>@col</td>
+
+                                    <td class="success">?</td>
                                 }
                             }
                     </tr>
