@@ -29,9 +29,9 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
   val width = field.width
 
   val helper = new helper
-  val json = helper.gridToJson(field);
+  val jsonField = helper.gridToJson(field);
   def kakuro() = Action {implicit request: Request[AnyContent] =>
-    Ok(views.html.test(field))
+    Ok(views.html.test(jsonField))
   }
 
 

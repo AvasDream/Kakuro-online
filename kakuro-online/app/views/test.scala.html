@@ -1,7 +1,27 @@
-@(field: de.htwg.se.kakuro.model.fieldComponent.FieldInterface)
+@(field: play.api.libs.json.JsObject)
 
 @main("Test Functions") {
+
+
+
 <div class="container">
+    <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary">Start Game</button>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Set: row col value</span>
+                </div>
+                <input type="text" class="form-control" id="row">
+                <input type="text" class="form-control" id="col">
+                <input type="text" class="form-control" id="value">
+                <button type="button" class="btn btn-success">Set</button>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="row justify-content-center">
         <div class="col-lg-6 ">
             <table class="table table-bordered table-dark">
@@ -21,16 +41,9 @@
                 <tbody>
                 @for(row <- 0 until 8) {
                     <tr>
-                        <th scope="row">@row</th>
+                        <th scope="row">@(row + 1)</th>
                             @for(col <- 0 until 8) {
-                                @if(field.cell(row,col).isWhite) {
-                                    <td class="success">_</td>
-                                } else if(field.cell(row,col).isBlack) {
-                                    <td class="success">X</td>
-                                } else {
-
-                                    <td class="success">?</td>
-                                }
+                                <td class="success" about="@col.@row"></td>
                             }
                     </tr>
                 }
