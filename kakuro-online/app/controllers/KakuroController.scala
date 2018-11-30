@@ -27,32 +27,15 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
   val width = field.width
   val helper = new helper;
 
-  def kakuro() = Action {implicit request: Request[AnyContent] =>
+  def kakuro = Action {implicit request: Request[AnyContent] =>
     Ok(views.html.test())
   }
 
-  def initGame() = Action {
+  def initGame = Action {
     controller.initField
-    val jsonField = helper.gridToJson(controller.getField)
-    val json: JsValue = Json.parse("""
-  {
-    "name" : "Watership Down",
-    "location" : {
-      "lat" : 51.235685,
-      "long" : -1.309197
-    },
-    "residents" : [ {
-      "name" : "Fiver",
-      "age" : 4,
-      "role" : null
-    }, {
-      "name" : "Bigwig",
-      "age" : 6,
-      "role" : "Owsla"
-    } ]
-  }
-  """)
-    Ok(json)
+    val jsonField = helper.gridToJson(controller.getField).toString()
+    printf("%s",jsonField.toString())
+    Ok(jsonField)
   }
 
 
