@@ -7,6 +7,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <button type="button" class="btn btn-primary" id="initButton">Start Game</button>
+        <button type="button" class="btn btn-primary" id="clearButton">Clear Game</button>
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-6">
@@ -43,7 +44,7 @@
                     <tr>
                         <th scope="row">@(row + 1)</th>
                             @for(col <- 0 until 8) {
-                                <td class="success" about="@col.@row"></td>
+                                <td class="success" id="@col.@row"></td>
                             }
                     </tr>
                 }

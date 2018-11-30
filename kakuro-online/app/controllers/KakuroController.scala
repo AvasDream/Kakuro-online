@@ -16,15 +16,8 @@ import play.api.libs.json._
 @Singleton
 class KakuroController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  // Best practice logging
-  // val logger: Logger = Logger(this.getClass())
   val injector = Guice.createInjector(new KakuroModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
-  controller.initField
-  Logger.info("Hello World")
-  val field = controller.getField
-  val height = field.height
-  val width = field.width
   val helper = new helper;
 
   def kakuro = Action {implicit request: Request[AnyContent] =>
@@ -37,8 +30,6 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
     printf("%s",jsonField.toString())
     Ok(jsonField)
   }
-
-
 
 }
 
