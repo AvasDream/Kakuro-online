@@ -1,4 +1,6 @@
 @import scala._
+@import de.htwg.se.kakuro.aview.Tui
+
 @(controller: de.htwg.se.kakuro.controller.controllerComponent.ControllerInterface)
 
 @field = @{
@@ -35,6 +37,75 @@
     <br>
 
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <div id="userInp">
+        <form action="/test/set">
+            <h2>Optionen</h2>
+
+            <h5>Wert setzen: </h5>
+            <label>row:
+			<select name="srow">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+			</select>
+            </label>
+            <label>col:
+                <select name="scol">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                </select>
+            </label>
+            <input type="text" name="value">
+            <button type = "submit" onclick="/test/set">save</button>
+            <h5>Wert löschen: </h5>
+            <label>row:
+			<select name="drow">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+			</select>
+            </label>
+            <label>col:
+                <select name="dcol">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                </select>
+            </label>
+            <button type = "delete">delete</button>
+            <h5>Rückgängig machen: </h5>
+            <button type = "undo" onclick="@routes.KakuroController.undo()">undo</button>
+            <h5>Wiederholen: </h5>
+            <button type = "redo" onclick="@routes.KakuroController.redo()">redo</button>
+            <h5>Jetztige Zustand speichern: </h5>
+            <button type = "save" onclick="@routes.KakuroController.save()">save</button>
+            <h5>Laden: </h5>
+            <button type = "load" onclick="@routes.KakuroController.load()">load</button>
+        </form>
+    </div>
+
+
     <div id="kakuro">
         <div class="container">
             <div class="row justify-content-center">
@@ -78,7 +149,6 @@
                                     }
                                     </tr>
                                 </tbody>
-
                             }
                         }
                     </table>
