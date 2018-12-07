@@ -17,22 +17,44 @@ function initGame() {
                     var row = game.grid.cells[i].row
                     var col = game.grid.cells[i].col
                     var type = game.grid.cells[i].cell.type
-                    var id = String(row)+"."+String(col)
+                    //var id = String(row)+"."+String(col)
+                    var id = String(col)+"."+String(row)
                     //console.log(id,game.grid.cells[i].cell.type,row,col)
                     switch(type) {
                         case 0:
                             // leere Zelle
-                            document.getElementById(id).innerHTML = String(id)
+                            if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down == 0) {
+                                document.getElementById(id+".1.2").innerHTML = String(game.grid.cells[i].cell.right)
+                            }else if(game.grid.cells[i].cell.right == 0 && game.grid.cells[i].cell.down != 0){
+                                document.getElementById(id+".2.1").innerHTML = String(game.grid.cells[i].cell.down)
+                            }else if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down != 0){
+                                document.getElementById(id+".1.2").innerHTML = String(game.grid.cells[i].cell.right)
+                                document.getElementById(id+".2.1").innerHTML = String(game.grid.cells[i].cell.down)
+                            }
                             document.getElementById(id).style.color = "black";
                             break;
                         case 1:
                             //Zelle zum ausfüllen
-                            document.getElementById(id).innerHTML = String(id)
+                            if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down == 0) {
+                                document.getElementById(id+".1.2").innerHTML = String(game.grid.cells[i].cell.right)
+                            }else if(game.grid.cells[i].cell.right == 0 && game.grid.cells[i].cell.down != 0){
+                                document.getElementById(id+".2.1").innerHTML = String(game.grid.cells[i].cell.down)
+                            }else if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down != 0){
+                                document.getElementById(id+".1.2").innerHTML = String(game.grid.cells[i].cell.right)
+                                document.getElementById(id+".2.1").innerHTML = String(game.grid.cells[i].cell.down)
+                            }
                             document.getElementById(id).style.color = "white";
                             break;
                         case 2:
                             //Zelle die Werte angibt
-                            document.getElementById(id).innerHTML = String(id)
+                            if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down == 0) {
+                                document.getElementById(id+".1.2").innerHTML = String(game.grid.cells[i].cell.right)
+                            }else if(game.grid.cells[i].cell.right == 0 && game.grid.cells[i].cell.down != 0){
+                                document.getElementById(id+".2.1").innerHTML = String(game.grid.cells[i].cell.down)
+                            }else if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down != 0){
+                                document.getElementById(id+".1.2").innerHTML = String(game.grid.cells[i].cell.right)
+                                document.getElementById(id+".2.1").innerHTML = String(game.grid.cells[i].cell.down)
+                            }
                             document.getElementById(id).style.color = "red";
                             break;
                         default:
