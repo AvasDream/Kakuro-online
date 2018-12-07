@@ -1,5 +1,56 @@
-@(tui: String)
+@()
 
 @main("Test Functions") {
-<h1>@Html(tui)</h1>
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary" id="initButton">Start Game</button>
+        <button type="button" class="btn btn-primary" id="clearButton">Clear Game</button>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Set: row col value</span>
+                </div>
+                <input type="text" class="form-control" id="row">
+                <input type="text" class="form-control" id="col">
+                <input type="text" class="form-control" id="value">
+                <button type="button" class="btn btn-success">Set</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 ">
+            <table class="table table-bordered table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">1</th>
+                    <th scope="col">2</th>
+                    <th scope="col">3</th>
+                    <th scope="col">4</th>
+                    <th scope="col">5</th>
+                    <th scope="col">6</th>
+                    <th scope="col">7</th>
+                    <th scope="col">8</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for(row <- 0 until 8) {
+                    <tr>
+                        <th scope="row">@(row + 1)</th>
+                            @for(col <- 0 until 8) {
+                                <td class="success" id="@col.@row"></td>
+                            }
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 }
