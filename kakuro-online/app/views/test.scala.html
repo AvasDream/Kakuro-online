@@ -1,4 +1,5 @@
-@()
+@import scala.collection.mutable.Map
+@(fieldMap: scala.collection.mutable.Map[String, Int])
 
 @main("Test Functions") {
 
@@ -18,7 +19,7 @@
                 <input type="text" class="form-control" id="row">
                 <input type="text" class="form-control" id="col">
                 <input type="text" class="form-control" id="value">
-                <button type="button" class="btn btn-success">Set</button>
+                <button type="button" class="btn btn-success" id="setButton">Set</button>
             </div>
         </div>
     </div>
@@ -44,26 +45,40 @@
                     <tr>
                         <th scope="row">@(row + 1)</th>
                             @for(col <- 0 until 8) {
-                                <td class="success" id="@col.@row">
-                                    <table class="table-borderless table-sm">
-                                        <tbody>
-                                            <tr id="@col.@row.1">
-                                                <td></td>
-                                                <td id="@col.@row.1.2"></td>
-                                            </tr>
-                                            <tr id="@col.@row.2">
-                                                <td id="@col.@row.2.1"></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
+                                @if(fieldMap.get(row.toString + "." + col.toString).get == 1) {
+                                    <td id="@col.@row"></td>
+                                }
+                                @if(fieldMap.get(row.toString + "." + col.toString).get == 2){
+                                    <td class="success" id="@col.@row">
+                                        <table class="table-borderless table-sm">
+                                            <tbody>
+                                                <tr id="@col.@row.1">
+                                                    <td> </td>
+                                                    <td id="@col.@row.1.2"></td>
+                                                </tr>
+                                                <tr id="@col.@row.2">
+                                                    <td id="@col.@row.2.1"></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                }
+                                @if(fieldMap.get(row.toString + "." + col.toString).get == 0){
+                                    <td id="@col.@row"></td>
+                                }
                             }
                     </tr>
                 }
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary" id="undoButton">Undo</button>
+        <button type="button" class="btn btn-primary" id="redoButton">Redo</button>
+        <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+        <button type="button" class="btn btn-primary" id="loadButton">Load</button>
     </div>
 </div>
 }
