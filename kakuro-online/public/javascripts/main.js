@@ -30,7 +30,6 @@ $(document).ready(function(){
     });
     $("td").mouseup(function(){
         setColor(this.id)
-        cell_id_old = this.id
     });
 });
 
@@ -77,8 +76,12 @@ function initGame() {
                             alert("This case should not be possible,look at initGame switch case")
                     }
                 }
-            return game;
         });
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
+    return game;
 }
 
 function clearGame(){
@@ -120,29 +123,46 @@ function clearGame(){
     document.getElementById("row").value = ""
     document.getElementById("col").value = ""
     document.getElementById("value").value = ""
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
 }
 
 function setValue() {
-    var rowF = document.getElementById("row").value - 1
-    var colF = document.getElementById("col").value - 1
-    var valueF = document.getElementById("value").value
-    document.getElementById("row").value = ""
-    document.getElementById("col").value = ""
-    document.getElementById("value").value = ""
+    var rowF = document.getElementById("row").value
+    var colF = document.getElementById("col").value
+    var value = document.getElementById("value").value
+    if(!isNaN(parseInt(rowF))  && !isNaN(parseInt(colF)) && !isNaN(parseInt(value))) {
+        if(rowF >= 1 && rowF <= 8 && colF >= 1 && colF <= 8 && value >= 1 && value <= 9 ) {
+            var row = document.getElementById("row").value - 1
+            var col = document.getElementById("col").value - 1
+            document.getElementById("row").value = ""
+            document.getElementById("col").value = ""
+            document.getElementById("value").value = ""
 
-    var cell_id = String(rowF)+"."+String(colF)
-    if(filed_ids.includes(cell_id)) {
-        $.get("/set/" + rowF + "/" + colF + "/" + valueF, function (data, status) {
-            game = JSON.parse(data)
-            document.getElementById(cell_id).innerHTML = String(valueF)
-            document.getElementById(cell_id).style.backgroundColor = "white";
-            document.getElementById(cell_id).style.color = "black";
-        });
-        return game;
+            var cell_id = String(row) + "." + String(col)
+            if (filed_ids.includes(cell_id)) {
+                $.get("/set/" + row + "/" + col + "/" + value, function (data, status) {
+                    game = JSON.parse(data)
+                    document.getElementById(cell_id).innerHTML = String(value)
+                    document.getElementById(cell_id).style.backgroundColor = "white";
+                    document.getElementById(cell_id).style.color = "black";
+                });
+                return game;
+            } else {
+                alert("You can only fill white cells")
+            }
+        }else{
+            alert("Wrong input")
+        }
     }else{
-        alert("You can only fill white cells")
+        alert("Wrong input")
     }
-
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
 }
 
 function undoGame() {
@@ -189,6 +209,13 @@ function undoGame() {
         }
 
     });
+    document.getElementById("row").value = ""
+    document.getElementById("col").value = ""
+    document.getElementById("value").value = ""
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
     return game;
 }
 
@@ -234,10 +261,24 @@ function redoGame() {
         }
 
     });
+    document.getElementById("row").value = ""
+    document.getElementById("col").value = ""
+    document.getElementById("value").value = ""
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
     return game;
 }
 
 function saveGame() {
+    document.getElementById("row").value = ""
+    document.getElementById("col").value = ""
+    document.getElementById("value").value = ""
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
     $.get("/saveGame", function(){});
 }
 
@@ -285,34 +326,29 @@ function loadGame() {
         }
 
     });
+    document.getElementById("row").value = ""
+    document.getElementById("col").value = ""
+    document.getElementById("value").value = ""
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
     return game;
 }
 
-function setColor(cellId){
-    //filed_ids = new Array();
-    for (i in game.grid.cells) {
-        var row = game.grid.cells[i].row
-        var col = game.grid.cells[i].col
-        var type = game.grid.cells[i].cell.type
-        var id = String(row)+"."+String(col)
-        //console.log(id,game.grid.cells[i].cell.type,row,col)
-        if(cellId == id) {
-            switch (type) {
-                case 1:
-                    //Zelle zum ausfüllen
-                    document.getElementById(cellId).style.backgroundColor = "lightgray";
-                    break;
-                default:
-                    alert("You can only remove values from white cells")
+function setColor(cell_id){
+
+    if(filed_ids.includes(cell_id)) {
+        if(cell_id != cell_id_old){
+
+            document.getElementById(cell_id).style.backgroundColor = "lightgray";
+            if(cell_id_old.length > 2) {
+                document.getElementById(cell_id_old).style.backgroundColor = "white";
             }
-        }
-        if(cell_id_old.length > 2 && cell_id_old == id) {
-            switch (type) {
-                case 1:
-                    //Zelle zum ausfüllen
-                    document.getElementById(cell_id_old).style.backgroundColor = "white";
-                    break;
-            }
+            cell_id_old = cell_id
+        }else{
+            document.getElementById(cell_id).style.backgroundColor = "white";
+            cell_id_old = ""
         }
     }
 }
@@ -331,10 +367,14 @@ function clearValue(){
         });
         return game;
     }else{
-        alert("You can only remove values from white cells")
+        alert("Choose a cell")
     }
     cell_id_old = ""
+    document.getElementById("row").value = ""
+    document.getElementById("col").value = ""
+    document.getElementById("value").value = ""
 }
+
 function fillField(game) {
     for (cell in game.grid.cells) {
         console.log(cell);
