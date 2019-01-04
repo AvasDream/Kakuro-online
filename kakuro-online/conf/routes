@@ -17,6 +17,8 @@ GET     /saveGame                   controllers.KakuroController.saveGame()
 GET     /loadGame                   controllers.KakuroController.loadGame()
 
 GET    /set/:row/:col/:value       controllers.KakuroController.setValue(row: Int, col: Int, value: Int)
+GET    /clearVal/:row/:col       controllers.KakuroController.clearValue(row: Int, col: Int)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -43,31 +43,33 @@
                 <tbody>
                 @for(row <- 0 until 8) {
                     <tr>
-                        <th scope="row">@(row + 1)</th>
-                            @for(col <- 0 until 8) {
-                                @if(fieldMap.get(row.toString + "." + col.toString).get == 1) {
-                                    <td id="@col.@row"></td>
+                        <th class="align-content-center" scope="row">@(row + 1)</th>
+                            <div>
+                                @for(col <- 0 until 8) {
+                                    @if(fieldMap.get(row.toString + "." + col.toString).get == 1) {
+                                        <td class="align-middle" id="@row.@col"></td>
+                                    }
+                                    @if(fieldMap.get(row.toString + "." + col.toString).get == 2){
+                                        <td class="success" id="@row.@col">
+                                            <table class="table-borderless table-sm">
+                                                <tbody>
+                                                    <tr id="@row.@col.1">
+                                                        <td></td>
+                                                        <td id="@row.@col.1.2"></td>
+                                                    </tr>
+                                                    <tr id="@row.@col.2">
+                                                        <td id="@row.@col.2.1"></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    }
+                                    @if(fieldMap.get(row.toString + "." + col.toString).get == 0){
+                                        <td id="@row.@col"></td>
+                                    }
                                 }
-                                @if(fieldMap.get(row.toString + "." + col.toString).get == 2){
-                                    <td class="success" id="@col.@row">
-                                        <table class="table-borderless table-sm">
-                                            <tbody>
-                                                <tr id="@col.@row.1">
-                                                    <td> </td>
-                                                    <td id="@col.@row.1.2"></td>
-                                                </tr>
-                                                <tr id="@col.@row.2">
-                                                    <td id="@col.@row.2.1"></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                }
-                                @if(fieldMap.get(row.toString + "." + col.toString).get == 0){
-                                    <td id="@col.@row"></td>
-                                }
-                            }
+                            </div>
                     </tr>
                 }
                 </tbody>
@@ -79,6 +81,7 @@
         <button type="button" class="btn btn-primary" id="redoButton">Redo</button>
         <button type="button" class="btn btn-primary" id="saveButton">Save</button>
         <button type="button" class="btn btn-primary" id="loadButton">Load</button>
+        <button type="button" class="btn btn-primary" id="clearValButton">Clear</button>
     </div>
 </div>
 }

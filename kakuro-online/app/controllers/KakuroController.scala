@@ -67,6 +67,13 @@ class KakuroController @Inject()(cc: ControllerComponents) extends AbstractContr
     printf("%s",jsonField.toString())
     Ok(jsonField)
   }
+
+  def clearValue(row: Int, col: Int) = Action {
+    controller.clear(row, col)
+    val jsonField = helper.gridToJson(controller.getField).toString()
+    printf("%s",jsonField.toString())
+    Ok(jsonField)
+  }
 }
 
 
