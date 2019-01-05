@@ -291,6 +291,7 @@ function loadGame() {
     filed_ids = new Array();
     $.get("/loadGame", function(data, status){
         game = JSON.parse(data)
+        fillIdsForCheck(game)
         for (i in game.grid.cells) {
             var row = game.grid.cells[i].row
             var col = game.grid.cells[i].col
@@ -382,6 +383,7 @@ function clearValue(){
 function fillIdsForCheck(game) {
 
     var id_and_types = new Array();
+    filed_ids_for_check = new Array()
     for (i in game.grid.cells) {
         var row = game.grid.cells[i].row
         var col = game.grid.cells[i].col
