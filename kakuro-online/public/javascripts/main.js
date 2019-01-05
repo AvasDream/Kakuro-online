@@ -1,5 +1,6 @@
 var game;
 var filed_ids = new Array();
+var filed_ids_for_check = new Array();
 var cell_id_old = "";
 $(document).ready(function(){
     $("#initButton").click(function(){
@@ -28,6 +29,9 @@ $(document).ready(function(){
     $("#clearValButton").click(function() {
         game = clearValue()
     });
+    $("#checkButton").click(function() {
+        checkGame()
+    });
     $("td").mouseup(function(){
         setColor(this.id)
     });
@@ -40,6 +44,7 @@ function initGame() {
     document.getElementById("value").value = ""
     $.get("/initGame", function(data, status){
             game = JSON.parse(data)
+            fillIdsForCheck(game)
             for (i in game.grid.cells) {
                     var row = game.grid.cells[i].row
                     var col = game.grid.cells[i].col
@@ -354,7 +359,6 @@ function setColor(cell_id){
 }
 
 function clearValue(){
-
     if(filed_ids.includes(cell_id_old)) {
         var res = cell_id_old.split(".")
         var rowF = parseInt(res[0])
@@ -370,6 +374,125 @@ function clearValue(){
         alert("Choose a cell")
     }
     cell_id_old = ""
+    document.getElementById("row").value = ""
+    document.getElementById("col").value = ""
+    document.getElementById("value").value = ""
+}
+
+function fillIdsForCheck(game) {
+
+    var id_and_types = new Array();
+    for (i in game.grid.cells) {
+        var row = game.grid.cells[i].row
+        var col = game.grid.cells[i].col
+        var type = game.grid.cells[i].cell.type
+        //var id = String(row)+"."+String(col)
+        var id = String(row)+"."+String(col)
+
+        if(type == 2) {
+                //Zelle die Werte angibt
+            if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down == 0) {
+                id_and_types.push(id+".1.2" + ":right")
+            }else if(game.grid.cells[i].cell.right == 0 && game.grid.cells[i].cell.down != 0){
+                id_and_types.push(id+".2.1" + ":down")
+            }else if(game.grid.cells[i].cell.right != 0 && game.grid.cells[i].cell.down != 0){
+                id_and_types.push(id+".1.2" + ":right")
+                id_and_types.push(id+".2.1" + ":down")
+            }
+        }
+    }
+
+    for(var j = 0; j <  id_and_types.length; j++) {
+
+        var id_and_typ = id_and_types[j].split(":")
+        var id_begin = id_and_typ[0].split(".")
+        var end_of_row = false
+        var sum_ids = id_and_typ[0]
+
+        for (l in game.grid.cells) {
+
+            var row = game.grid.cells[l].row
+            var col = game.grid.cells[l].col
+            var type = game.grid.cells[l].cell.type
+            var id = String(row) + "." + String(col)
+            //console.log(id,game.grid.cells[i].cell.type,row,col)
+            if(id_and_typ[1] == "right" && id.startsWith(id_begin[0]) && !id.endsWith(id_begin[1]) && !end_of_row && col > id_begin[1]) {
+                switch (type) {
+                    case 0:
+                        // // leere Zelle
+                        end_of_row = true
+                        break;
+                    case 1:
+                        //Zelle zum ausfüllen
+                        sum_ids += "," + id
+                        break;
+                    case 2:
+                        //Zelle die Werte angibt
+                        end_of_row = true
+                        break;
+                    default:
+                        alert("This case should not be possible,look at initGame switch case")
+                }
+            }
+
+            if(id_and_typ[1] == "down" && !id.startsWith(id_begin[0]) && id.endsWith(id_begin[1]) && !end_of_row && row > id_begin[0]) {
+                switch (type) {
+                    case 0:
+                        // // leere Zelle
+                        end_of_row = true
+                        break;
+                    case 1:
+                        //Zelle zum ausfüllen
+                        sum_ids += "," + id
+                        break;
+                    case 2:
+                        //Zelle die Werte angibt
+                        end_of_row = true
+                        break;
+                    default:
+                        alert("This case should not be possible,look at initGame switch case")
+                }
+            }
+        }
+        filed_ids_for_check.push(sum_ids)
+    }
+
+}
+
+function checkGame(){
+    for(var i = 0; i <  filed_ids_for_check.length; i++) {
+        var ids = filed_ids_for_check[i].split(",")
+        var values = new Array()
+        var values_equals = false
+        var res = 0
+        var sum = parseInt(document.getElementById(ids[0]).textContent)
+        for(var j = 0; j <  ids.length; j++){
+            if(j != 0) {
+                res += parseInt(document.getElementById(ids[j]).textContent)
+                values.push(parseInt(document.getElementById(ids[j]).textContent))
+            }
+        }
+        for(var j = 0; j <  values.length; j++){
+            for(var k = j + 1; k <  values.length; k++){
+                if(values[j] == values[k]){
+                    values_equals = true
+                }
+            }
+        }
+        if(!isNaN(res)) {
+            if ((values_equals || sum != res)) {
+                for (var j = 0; j < ids.length; j++) {
+                    if (j != 0) {
+                        document.getElementById(ids[j]).style.backgroundColor = "red";
+                    }
+                }
+            }
+        }
+    }
+    if(cell_id_old.length > 2) {
+        document.getElementById(cell_id_old).style.backgroundColor = "white";
+        cell_id_old = ""
+    }
     document.getElementById("row").value = ""
     document.getElementById("col").value = ""
     document.getElementById("value").value = ""
