@@ -16,7 +16,7 @@ GET     /redoGame                   controllers.KakuroController.redoGame()
 GET     /saveGame                   controllers.KakuroController.saveGame()
 GET     /loadGame                   controllers.KakuroController.loadGame()
 
-GET    /set/:row/:col/:value       controllers.KakuroController.setValue(row: Int, col: Int, value: Int)
+GET    /setValue/:row/:col/:value       controllers.KakuroController.setValue(row: Int, col: Int, value: Int)
 GET    /clearVal/:row/:col       controllers.KakuroController.clearValue(row: Int, col: Int)
 
 
